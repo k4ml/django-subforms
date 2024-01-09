@@ -132,6 +132,8 @@ class NestedFormWidget(forms.MultiWidget):
 
     def __init__(self, form_class: Type[forms.Form], attrs: Optional[Dict[str, Any]] = None) -> None:
         self.subform = form_class()
+        if self.subform.template_name:
+            self.template_name = self.subform.template_name
         widgets = {name: bound_field.widget for name, bound_field in self.subform.fields.items()}
         super().__init__(widgets=widgets, attrs=attrs)
 
