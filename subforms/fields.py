@@ -201,6 +201,8 @@ class NestedFormField(forms.MultiValueField):
 
         # Chance to do some form wide validation and cleanup before
         # the fields are validated
+        if value:
+            value = dict(zip(self.subform.fields.keys(), value))
         self.subform.cleaned_data = value
         try:
             self.subform.clean()
